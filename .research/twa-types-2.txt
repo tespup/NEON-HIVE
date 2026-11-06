@@ -1,0 +1,41 @@
+{
+    "name": "@types/telegram-web-app",
+    "version": "10.1.0",
+    "description": "TypeScript definitions for telegram-web-app",
+    "homepage": "https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/telegram-web-app",
+    "license": "MIT",
+    "contributors": [
+        {
+            "name": "KnorpelSenf",
+            "githubUsername": "KnorpelSenf",
+            "url": "https://github.com/KnorpelSenf"
+        },
+        {
+            "name": "MKRhere",
+            "githubUsername": "MKRhere",
+            "url": "https://github.com/MKRhere"
+        },
+        {
+            "name": "deptyped",
+            "githubUsername": "deptyped",
+            "url": "https://github.com/deptyped"
+        },
+        {
+            "name": "sidorko",
+            "githubUsername": "sidorko",
+            "url": "https://github.com/sidorko"
+        }
+    ],
+    "main": "",
+    "types": "index.d.ts",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/DefinitelyTyped/DefinitelyTyped.git",
+        "directory": "types/telegram-web-app"
+    },
+    "scripts": {},
+    "dependencies": {},
+    "peerDependencies": {},
+    "typesPublisherContentHash": "efeac9616e2ef7555a22d3f7be9c3aadc6990783ad405f48e1f246eeb28b442f",
+    "typeScriptVersion": "5.6"
+}

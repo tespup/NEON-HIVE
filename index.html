@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <title>НЕОНОВЫЙ УЛЕЙ — Telegram Mini App</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+  <meta name="theme-color" content="#07060f">
+  <meta name="description" content="Мерж-2 соты + оборона 4 дорожек + Эхо реальных забегов. 100 секунд на забег.">
+  <meta name="HandheldFriendly" content="true">
+  <meta name="format-detection" content="telephone=no">
+  <link rel="preload" href="css/style.css" as="style">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <style>
+    /*
+      ── Портретный страж ────────────────────────────────────────────────
+      Игра рисованная: холст 720×1280, весь UX рассчитан на портрет.
+      В ландшафте показываем оверлей «поверни телефон» вместо игры.
+      Стили инлайном и первыми — они обязаны сработать до загрузки
+      остального CSS, иначе между кадрами мелькнёт перевёрнутая игра.
+    */
+    #rotate {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 999999;
+      background: #07060f;
+      color: #22e6ff;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      pointer-events: all;
+      user-select: none;
+      -webkit-user-select: none;
+      -webkit-touch-callout: none;
+      -webkit-tap-highlight-color: transparent;
+      padding:
+        calc(24px + env(safe-area-inset-top))
+        calc(24px + env(safe-area-inset-right))
+        calc(24px + env(safe-area-inset-bottom))
+        calc(24px + env(safe-area-inset-left));
+      font-family: 'Orbitron', 'Segoe UI', system-ui, sans-serif;
+    }
+    #rotate.visible { display: flex; }
+    #rotate .box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 18px;
+      max-width: 640px;
+      width: 100%;
+    }
+    #rotate .ico {
+      font-size: 56px;
+      line-height: 1;
+      animation: nh-rotate 1.2s ease-in-out infinite;
+    }
+    #rotate .txt {
+      font-size: 18px;
+      line-height: 1.7;
+      letter-spacing: 1px;
+      text-shadow: 0 0 12px rgba(34, 230, 255, .65);
+    }
+    #rotate .sub {
+      font-size: 12px;
+      line-height: 1.6;
+      color: rgba(34, 230, 255, .72);
+      text-shadow: 0 0 8px rgba(34, 230, 255, .35);
+    }
+    @keyframes nh-rotate {
+      0% { transform: scale(1) rotate(0deg); opacity: .85; }
+      50% { transform: scale(1.12) rotate(-12deg); opacity: 1; }
+      100% { transform: scale(1) rotate(0deg); opacity: .85; }
+    }
+    /*
+      Страховка на случай, если JS ещё не успел: чистый CSS ловит ландшафт
+      на тач-устройстве. Как только JS инициализировался, он вешает на <html>
+      класс .orientation-guard-ready, и дальше видимостью рулит только .visible.
+    */
+    @media screen and (orientation: landscape) and (hover: none) and (pointer: coarse) {
+      html:not(.orientation-guard-ready) #rotate { display: flex; }
+    }
+  </style>
+</head>
+<body>
+  <div id="rotate" role="alert" aria-live="assertive">
+    <div class="box">
+      <div class="ico">📱</div>
+      <div class="txt">ПОВЕРНИТЕ ТЕЛЕФОН<br>ВЕРТИКАЛЬНО</div>
+      <div class="sub">Улей строится только в портретном режиме</div>
+    </div>
+  </div>
+  <div id="stage">
+    <canvas id="cv"></canvas>
+    <div id="top" class="top"></div>
+    <div id="ui" class="ui"></div>
+  </div>
+  <noscript><p style="color:#fff;padding:24px">Нужен JavaScript. Открой игру внутри Telegram.</p></noscript>
+  <script src="js/util.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/platform.js"></script>
+  <script src="js/services.js"></script>
+  <script src="js/save.js"></script>
+  <script src="js/render.js"></script>
+  <script src="js/game.js"></script>
+  <script src="js/ui.js"></script>
+  <script>
+    /* Старт: только после ready() платформы (Telegram WebApp SDK сам её поднимает) */
+    (function () {
+      function go() { try { window.NH.UI.boot(); } catch (e) { console.error(e); document.body.classList.add('bootfail'); } }
+      if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', go); else go();
+    })();
+  </script>
+</body>
+</html>
